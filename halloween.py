@@ -6,6 +6,9 @@ import sys
 import mp3_organizer
 import ultrasonic_sensor
 from pygame import mixer
+import RPi.GPIO as GPIO  
+
+
 
 # how long the mp3 should be played before the player stops
 MP3_PLAYTIME_SECONDS = 5
@@ -35,20 +38,26 @@ print("* halloween scarybox                                          *")
 print("***************************************************************")
 print("")
 
+hysteresis = 0
+distance_cm = 0
+
+
 audio_files = mp3_organizer.get_mp3s_from_path(FILE_PATH)
+ultrasonic_sensor.init()
+
 
 try:
 	while True:
 		distance_cm = ultrasonic_sensor.get_distance_cm()
 		
-		print("currentDistance = %.1f cm" % currentDistance)
+		print("current distance = %.1f cm" % distance_cm)
 		
 		if (distance_cm < MIN_DISTANCE_CM):
 			hysteresis += 1
 		elif (hysteresis > 0):
 			hysteresis -= 1
 			
-		if (hystersis > MAX_HYSTERESIS):
+		if (hysteresis > MAX_HYSTERESIS):
 			file_to_play = mp3_organizer.get_randomfile_from_list(audio_files)
 
 			mixer.init()
@@ -65,6 +74,8 @@ try:
 			hysteresis = 0
 			
 except KeyboardInterrupt:
-		print("stopped from user")
-		GPIO.cleanup()
+	print("stopped from user")
 
+finally:
+	print("doing cleanup stuff...")
+	GPIO.cleanup()
