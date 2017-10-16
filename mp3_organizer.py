@@ -1,5 +1,6 @@
 from random import randint
 import os
+import sys
 
 
 ########################################################################
@@ -54,11 +55,9 @@ def get_mp3s_from_path(file_path) :
 def get_randomfile_from_list(filelist):
 	
 	if ( len(filelist) > 0 ):
-		
 		random_index = randint(0, len(filelist)-1)
 		random_file  = filelist[random_index]
 		return random_file
-		
 	else:
 		print("there are no mp3 files found!")
 		print("please add one into the 'files' folder")
