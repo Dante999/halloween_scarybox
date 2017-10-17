@@ -41,9 +41,13 @@ def get_distance_cm():
 	time.sleep(0.00001)
 	GPIO.output(GPIO_TRIGGER, False)
 
+	start_time_seconds = time.time()
+
 	# repeat until the echo is send
 	while GPIO.input(GPIO_ECHO) == 0:
 		start_time_seconds = time.time()
+
+	stop_time_seconds = time.time()
 
 	# repeat until the echo is received
 	while GPIO.input(GPIO_ECHO) == 1:
@@ -54,7 +58,7 @@ def get_distance_cm():
     
 	# calculate the distance from the time difference
 	# speed of sound (34300 cm/s) x  time
-	distance_cm = (TimeElapsed * 34300) / 2
+	distance_cm = (time_difference_seconds * 34300) / 2
 
 	return distance_cm
 	
