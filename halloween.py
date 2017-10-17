@@ -9,7 +9,6 @@ from pygame import mixer
 import RPi.GPIO as GPIO  
 
 
-
 # how long the mp3 should be played before the player stops
 MP3_PLAYTIME_SECONDS = 5
 
@@ -20,7 +19,7 @@ MP3_VOLUME = 1.0
 FILE_PATH = "./files"
 
 # if the measured distance is under this level, the hysteresis will increased
-MIN_DISTANCE_CM = 1500
+MIN_DISTANCE_CM = 150
 
 # if the hysteresis is greater than this level, the mp3 will be played
 MAX_HYSTERESIS 	= 5
@@ -30,7 +29,7 @@ audio_files = []
 
 
 ########################################################################
-# somthing like the 'main' function
+# something like the 'main' function
 ########################################################################
 print("")
 print("***************************************************************")
@@ -50,13 +49,15 @@ try:
 	while True:
 		distance_cm = ultrasonic_sensor.get_distance_cm()
 		
-		print("current distance = %.1f cm" % distance_cm)
+		#print("current distance = %.1f cm" % distance_cm)
 		
 		if (distance_cm < MIN_DISTANCE_CM):
 			hysteresis += 1
 		elif (hysteresis > 0):
 			hysteresis -= 1
 			
+		print("hysteresis " + str(hysteresis) + " from " + str(MAX_HYSTERESIS) + " distance %.1f cm" %distance_cm)
+
 		if (hysteresis > MAX_HYSTERESIS):
 			file_to_play = mp3_organizer.get_randomfile_from_list(audio_files)
 
@@ -72,6 +73,7 @@ try:
 			mixer.music.stop()
 			
 			hysteresis = 0
+
 			
 except KeyboardInterrupt:
 	print("stopped from user")
