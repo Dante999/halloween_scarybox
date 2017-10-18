@@ -12,7 +12,7 @@ import RPi.GPIO as GPIO
 # how long the mp3 should be played before the player stops
 MP3_PLAYTIME_SECONDS = 5
 
-# Volume (value from 0.0 to 1.0)
+# Volume [0.0 (min) to 1.0 (max)]
 MP3_VOLUME = 1.0
 
 # folder where the mp3-files are stored
@@ -37,7 +37,8 @@ print("* halloween scarybox                                          *")
 print("***************************************************************")
 print("")
 
-hysteresis = 0
+# initialize values
+hysteresis  = 0
 distance_cm = 0
 
 
@@ -48,8 +49,6 @@ ultrasonic_sensor.init()
 try:
 	while True:
 		distance_cm = ultrasonic_sensor.get_distance_cm()
-		
-		#print("current distance = %.1f cm" % distance_cm)
 		
 		if (distance_cm < MIN_DISTANCE_CM):
 			hysteresis += 1

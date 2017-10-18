@@ -7,26 +7,26 @@ import sys
 # returns a list with all mp3s from the directory
 #
 # @param	none
-# 
+#
 # @return	list with all mp3s
 #
 ########################################################################
 def get_mp3s_from_path(file_path) :
-	
+
 	mp3_files = []
 
-	if( os.path.exists(file_path) ):	
+	if( os.path.exists(file_path) ):
 
 		print("scanning for mp3 files in folder 'files'")
+		all_files = os.listdir(file_path)
 
-		all_files = os.listdir(file_path)	
-	
 		for file in all_files:
-		
+
 			if ( file.endswith(".mp3") ):
 				print("\tfound mp3: " + file)
 				mp3_files.append(file_path + "/" + file)
-	
+
+
 		if( len(mp3_files) > 0 ):
 			return mp3_files
 		else:
@@ -41,19 +41,19 @@ def get_mp3s_from_path(file_path) :
 		print("program will be exited!")
 		print("")
 		sys.exit()
-		
-		
-		
+
+
+
 ########################################################################
 # returns a random file from a given list
 #
 # @param	filelist	a list with files
-# 
+#
 # @return	a random file from the given list
 #
 ########################################################################
 def get_randomfile_from_list(filelist):
-	
+
 	if ( len(filelist) > 0 ):
 		random_index = randint(0, len(filelist)-1)
 		random_file  = filelist[random_index]

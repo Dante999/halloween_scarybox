@@ -4,10 +4,11 @@
 import RPi.GPIO as GPIO
 import time
 
+# Assign GPIOs (BCM)
+GPIO_TRIGGER = 14
+GPIO_ECHO    = 15
 
-GPIO_TRIGGER 	= 14
-GPIO_ECHO	= 15
-
+# Limit the maximum measured distance
 MAX_DISTANCE_CM = 250
 
 ########################################################################
@@ -61,7 +62,7 @@ def get_distance_cm():
 	time_difference_seconds = stop_time_seconds - start_time_seconds
     
 	# calculate the distance from the time difference
-	# speed of sound (34300 cm/s) x  time
+	# speed of sound (34300 cm/s)
 	distance_cm = (time_difference_seconds * 17150)
 	distance_cm = round(distance_cm,0)
 
@@ -69,8 +70,6 @@ def get_distance_cm():
 		distance_cm = 350
 
 	return distance_cm
-	
-
 
 
 
